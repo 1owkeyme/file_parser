@@ -1,12 +1,15 @@
 package writer
 
 import (
+	"file_parser/interfaces"
 	"fmt"
 	"sort"
 	"strings"
 )
 
 type ConsoleWriter struct{}
+
+var _ interfaces.Writer = (*ConsoleWriter)(nil)
 
 func NewConsoleWriter() *ConsoleWriter {
 	return &ConsoleWriter{}

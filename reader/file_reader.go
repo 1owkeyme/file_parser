@@ -2,6 +2,7 @@ package reader
 
 import (
 	"bufio"
+	"file_parser/interfaces"
 	"fmt"
 	"os"
 	"strconv"
@@ -11,6 +12,8 @@ import (
 type FileReader struct {
 	filePath string
 }
+
+var _ interfaces.Reader = (*FileReader)(nil)
 
 func NewFileReader(filepath string) *FileReader {
 	return &FileReader{filePath: filepath}
