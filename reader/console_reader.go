@@ -9,27 +9,27 @@ import (
 	"strings"
 )
 
-type FileReader struct {
-	filePath string
+type ConsoleReader struct{}
+
+var _ interfaces.Reader = (*ConsoleReader)(nil)
+
+func NewConsoleReader() *ConsoleReader {
+	return &ConsoleReader{}
 }
 
-var _ interfaces.Reader = (*FileReader)(nil)
-
-func NewFileReader(filepath string) *FileReader {
-	return &FileReader{filePath: filepath}
-}
-
-func (fr *FileReader) Read() (map[string]map[string][]int, error) {
-	f, err := os.Open(fr.filePath)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
+func (cr *ConsoleReader) Read() (map[string]map[string][]int, error) {
 	students := make(map[string]map[string][]int)
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
+	scanner := bufio.NewScanner(os.Stdin)
+
+	fmt.Println("Enter student records (format: Name Subject Score) or press Enter on an empty line to finish:")
+
+	for {
+		scanner.Scan()
 		line := scanner.Text()
+		if line == "" {
+			break
+		}
+
 		parts := strings.Fields(line)
 		if len(parts) != 3 {
 			return nil, fmt.Errorf("invalid line format: %s", line)
@@ -43,7 +43,7 @@ func (fr *FileReader) Read() (map[string]map[string][]int, error) {
 
 		score, err := strconv.Atoi(parts[2])
 		if err != nil {
-			return nil, fmt.Errorf("invalid score for student %s: %s", name, parts[1])
+			return nil, fmt.Errorf("invalid score for student %s: %s", name, parts[2])
 		}
 		if students[name] == nil {
 			students[name] = make(map[string][]int)

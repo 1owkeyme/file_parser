@@ -1,0 +1,13 @@
+Maria
+english Scores: 4, 5
+Average score: 4.50
+
+Alexey
+physics Scores: 4
+Average score: 4.00
+
+Ivan
+math Scores: 5
+english Scores: 3
+Average score: 4.00
+

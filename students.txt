@@ -1,6 +1,6 @@
-Ivan 5
-Maria 4
-Ivan 3
-Alexey 5
-Maria 5
-Alexey 4
+Ivan math 5
+Maria english 4
+Ivan english 3
+Alexey unknown 5
+Maria english 5
+Alexey physics 4

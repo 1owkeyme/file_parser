@@ -1,22 +1,31 @@
 package main
 
 import (
-	"file_parser/reader"
+	"file_parser/interfaces"
+	reader_impl "file_parser/reader"
 	"file_parser/service"
-	"file_parser/writer"
-	"fmt"
-	"os"
+	writer_impl "file_parser/writer"
+	"flag"
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("provide path to file as first argument")
-		return
+	var filePath, outputFile string
+	flag.StringVar(&filePath, "f", "", "input file path")
+	flag.StringVar(&outputFile, "o", "", "output file path")
+	flag.Parse()
+
+	var reader interfaces.Reader
+	if filePath != "" {
+		reader = reader_impl.NewFileReader(filePath)
+	} else {
+		reader = reader_impl.NewConsoleReader()
 	}
 
-	filePath := os.Args[1]
-
-	fileReader := reader.NewFileReader(filePath)
-	consoleWriter := writer.NewConsoleWriter()
-	service.NewStudentService(fileReader, consoleWriter).Process()
+	var writer interfaces.Writer
+	if outputFile != "" {
+		writer = writer_impl.NewFileWriter(outputFile)
+	} else {
+		writer = writer_impl.NewConsoleWriter()
+	}
+	service.NewStudentService(reader, writer).Process()
 }
