@@ -1,5 +1,5 @@
 package interfaces
 
 type Reader interface {
-	Read() (map[string][]int, error)
+	Read() (map[string]map[string][]int, error)
 }
