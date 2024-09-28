@@ -35,7 +35,7 @@ func (cw *ConsoleWriter) Write(data map[string]map[string][]int, averages map[st
 		fmt.Fprintln(output, name)
 		for subject, scores := range scores {
 			scoresStr := strings.Join(intSliceToStringSlice(scores), ", ")
-			fmt.Fprintf(output, "%s Scores: %s\n", subject, scoresStr)
+			fmt.Fprintf(output, "%s scores: %s\n", subject, scoresStr)
 		}
 		fmt.Fprintf(output, "Average score: %.2f\n\n", averages[name])
 	}
